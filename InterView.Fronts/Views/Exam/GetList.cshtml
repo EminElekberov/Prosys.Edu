@@ -1,0 +1,97 @@
+﻿@model List<ExamDto>
+@{
+    ViewData["Title"] = "İmtahan Nəticələri";
+    ViewData["ActiveMenu"] = "Exams"; // Sol menyuda İmtahanlar bölməsini aktiv edir
+}
+
+<!-- Səhifə Başlığı və Əlavə Et Düyməsi -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-0 text-dark">İmtahan Nəticələri</h4>
+        <p class="text-muted small mb-0">Şagirdlərin dərslər üzrə topladıqları imtahan balları və tarixləri</p>
+    </div>
+    <!-- Kliklənəndə dynamic partial-ı çağıran JS funksiyası -->
+    <button type="button" class="btn btn-primary px-4 py-2 d-flex align-items-center rounded-3 fw-medium" onclick="openAddExamModal()">
+        <i class="fa-solid fa-file-signature me-2"></i> Yeni Qiymət Yaz
+    </button>
+</div>
+
+<!-- GetList - Cədvəl Kartı -->
+<div class="card custom-card border-0 shadow-sm mb-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-secondary">
+                    <tr>
+                        <th class="ps-4 py-3" style="font-weight: 600; font-size: 0.85rem; width: 30%;">ŞAGİRD</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 25%;">DƏRS</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 25%;">İMTAHAN TARİXİ</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 10%;">QİYMƏT / BAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-medium text-dark">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light text-dark rounded-circle d-flex align-items-center justify-content-center me-2 fw-semibold" style="width: 32px; height: 32px; font-size: 0.8rem;">
+                                            <i class="fa-solid fa-user-graduate text-muted"></i>
+                                        </div>
+                                        <span>@item.UserName</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border border-light-subtle px-2.5 py-1.5 rounded-2">
+                                        @item.LessonName
+                                    </span>
+                                </td>
+                                <td class="text-secondary small">
+                                    <i class="fa-regular fa-calendar me-1.5 text-muted"></i>
+                                    @item.RegistrationDate
+                                </td>
+                                <td>
+                                    <!-- Qiymətə görə vizual rəng tonu (məsələn, 4-5 və ya yüksək bala görə yaşıl) -->
+                                    <span class="fw-bold fs-6 @(item.Price >= 81 ? "text-success" : (item.Price >= 51 ? "text-warning" : "text-danger"))">
+                                        @item.Price
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">Hələ ki, heç bir imtahan nəticəsi daxil edilməyib.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Dynamic Modalın yüklənəcəyi boş konteyner -->
+<div id="examModalContainer"></div>
+
+@section Scripts {
+    <script>
+        function openAddExamModal() {
+            $.ajax({
+                url: '/Exam/GetCreatePartial',
+                type: 'GET',
+                success: function (response) {
+                    $('#examModalContainer').html(response);
+
+                    var examModal = new bootstrap.Modal(document.getElementById('addExamModal'));
+                    examModal.show();
+                },
+                error: function () {
+                    alert('İmtahan əlavə etmə paneli yüklənərkən xəta baş verdi.');
+                }
+            });
+        }
+    </script>
+}

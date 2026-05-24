@@ -1,0 +1,12 @@
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\bin\Debug\net9.0\InterView.RemoteServer.deps.json
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\bin\Debug\net9.0\InterView.RemoteServer.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\bin\Debug\net9.0\InterView.RemoteServer.pdb
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\InterView.RemoteServer.csproj.AssemblyReference.cache
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\InterView.RemoteServer.GeneratedMSBuildEditorConfig.editorconfig
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\InterView.RemoteServer.AssemblyInfoInputs.cache
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\InterView.RemoteServer.AssemblyInfo.cs
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\InterView.RemoteServer.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\InterView.RemoteServer.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\refint\InterView.RemoteServer.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\InterView.RemoteServer.pdb
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.RemoteServer\obj\Debug\net9.0\ref\InterView.RemoteServer.dll

@@ -1,0 +1,100 @@
+﻿@{
+    var student = ((IEnumerable<SelectListItem>)ViewBag.student)
+.Select(s => $"<option value=\"{s.Value}\">{s.Text}</option>")
+.ToList();
+
+    var Lesson = ((IEnumerable<SelectListItem>)ViewBag.Lesson)
+   .Select(s => $"<option value=\"{s.Value}\">{s.Text}</option>")
+   .ToList();
+
+}
+
+<div class="modal fade" id="addExamModal" tabindex="-1" aria-labelledby="addExamModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 14px;">
+
+            <div class="modal-header border-bottom-0 pb-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <h5 class="modal-title fw-bold text-dark" id="addExamModalLabel">
+                    <i class="fa-solid fa-file-circle-plus text-primary me-2"></i> Yeni İmtahan Nəticəsi
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bağla"></button>
+            </div>
+
+            <form id="createExamForm" onsubmit="submitExamForm(event)">
+                <div class="modal-body p-4">
+
+                    <!-- Dynamic Şagird Seçimi -->
+                    <div class="mb-3">
+                        <label for="studentId" class="form-label small fw-semibold text-secondary">Şagird <span class="text-danger">*</span></label>
+                        <select class="form-select border-light-subtle py-2 rounded-3" id="studentId" required>
+                            @Html.Raw(string.Join("", student))
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Dərs Seçimi -->
+                    <div class="mb-3">
+                        <label for="lessonId" class="form-label small fw-semibold text-secondary">Dərs <span class="text-danger">*</span></label>
+                        <select class="form-select border-light-subtle py-2 rounded-3" id="lessonId" required>
+                            @Html.Raw(string.Join("", Lesson))
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="examDate" class="form-label small fw-semibold text-secondary">İmtahan Tarixi <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control border-light-subtle py-2 rounded-3" id="examDate" required value="@DateTime.Now.ToString("yyyy-MM-dd")">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="grade" class="form-label small fw-semibold text-secondary">Qiymət / Bal <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control border-light-subtle py-2 rounded-3" id="grade" min="0" max="100" placeholder="Məsələn: 85" required autocomplete="off">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer border-top-0 pt-0 pb-4 px-4">
+                    <button type="button" class="btn btn-light px-3 py-2 rounded-3 text-secondary fw-medium small" data-bs-dismiss="modal">Ləğv et</button>
+                    <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 fw-medium small shadow-sm">
+                        <i class="fa-solid fa-check me-1"></i> Nəticəni Yaz
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitExamForm(e) {
+        e.preventDefault();
+
+        // Göndəriləcək tam model strukturu
+        var examModel = {
+            UserId: $('#studentId').val(),
+            LessonId: $('#lessonId').val(),
+            RegistrationDate: $('#examDate').val(),
+            Price: $('#grade').val()
+        };
+
+        $.ajax({
+            url: '/Exam/Create',
+            type: 'POST',
+            data: examModel,
+            success: function (response) {
+                if (response.success) {
+                    var modalEl = document.getElementById('addExamModal');
+                    var modalInstance = bootstrap.Modal.getInstance(modalEl);
+                    if (modalInstance) modalInstance.hide();
+
+                    alert(response.message || 'İmtahan nəticəsi uğurla yazıldı!');
+                    location.reload();
+                } else {
+                    alert('Xəta: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Məlumat qeyd edilərkən server xətası baş verdi.');
+            }
+        });
+    }
+</script>

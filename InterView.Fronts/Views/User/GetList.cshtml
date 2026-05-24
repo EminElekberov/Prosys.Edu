@@ -1,0 +1,111 @@
+﻿@model List<UsersDto>
+
+@{
+    ViewData["Title"] = "İstifadəçilərin İdarə Edilməsi";
+    ViewData["ActiveMenu"] = "Users"; // Layihədə bu menyunu aktiv etmək üçün
+}
+
+<!-- Səhifə Başlığı və Əlavə Et Düyməsi -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-0 text-dark">İstifadəçi Siyahısı</h4>
+        <p class="text-muted small mb-0">Sistemə daxil olmaq hüququ olan bütün şəxslərin siyahısı və rolları</p>
+    </div>
+    <!-- Kliklənəndə dynamic partial-ı çağıran JS funksiyası -->
+    <button type="button" class="btn btn-primary px-4 py-2 d-flex align-items-center rounded-3 fw-medium" onclick="openAddUserModal()">
+        <i class="fa-solid fa-user-plus me-2"></i> Yeni İstifadəçi
+    </button>
+</div>
+
+<!-- GetList - Cədvəl Kartı -->
+<div class="card custom-card border-0 shadow-sm mb-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-secondary">
+                    <tr>
+                        <th class="ps-4 py-3" style="font-weight: 600; font-size: 0.85rem; width: 45%;">AD SOYAD</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 45%;">İSTİFADƏÇİ TİPİ (ROL)</th>
+                        <th class="pe-4 py-3 text-end" style="font-weight: 600; font-size: 0.85rem; width: 10%;">ƏMƏLİYYATLAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-medium text-dark">
+                                    <div class="d-flex align-items-center">
+                                        <!-- İstifadəçi üçün baş hərflərdən ibarət dairəvi ikon -->
+                                        <div class="bg-secondary-subtle text-secondary rounded-circle d-flex align-items-center justify-content-center me-2.5 fw-bold" style="width: 38px; height: 38px; font-size: 0.85rem;">
+                                            @(item.Name.Substring(0, 1).ToUpper() + item.Surname.Substring(0, 1).ToUpper())
+                                        </div>
+                                        <div>
+                                            <span class="d-block fw-semibold text-dark">@item.Name@item.Surname</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <!-- İstifadəçi tipinə görə rəng dəyişən badge strukturu -->
+                                    @if (item.UserTypeName == "Admin")
+                                    {
+                                        <span class="badge bg-danger-subtle text-danger px-2.5 py-1.5 rounded-2 border border-danger-subtle">
+                                            <i class="fa-solid fa-user-shield me-1"></i> @item.UserTypeName
+                                        </span>
+                                    }
+                                    else if (item.UserTypeName == "Müəllim")
+                                    {
+                                        <span class="badge bg-primary-subtle text-primary px-2.5 py-1.5 rounded-2 border border-primary-subtle">
+                                            <i class="fa-solid fa-user-tie me-1"></i> @item.UserTypeName
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success-subtle text-success px-2.5 py-1.5 rounded-2 border border-success-subtle">
+                                            <i class="fa-solid fa-user me-1"></i> @item.UserTypeName
+                                        </span>
+                                    }
+                                </td>
+                                <td class="pe-4 text-end">
+                                    <button class="btn btn-sm btn-light text-primary me-1" title="Düzəliş et"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Sil"><i class="fa-solid fa-trash-can"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center py-4 text-muted">Sistemdə heç bir istifadəçi tapılmadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Dynamic Modalın yüklənəcəyi boş qab -->
+<div id="userModalContainer"></div>
+
+@section Scripts {
+    <script>
+        function openAddUserModal() {
+            // Tam sən istəyən metodla arxa tərəfdən partial view-nu çağırırıq
+            $.ajax({
+                url: '/User/GetCreatePartial',
+                type: 'GET',
+                success: function (response) {
+                    $('#userModalContainer').html(response);
+
+                    var userModal = new bootstrap.Modal(document.getElementById('addUserModal'));
+                    userModal.show();
+                },
+                error: function () {
+                    alert('İstifadəçi qeydiyyat paneli yüklənərkən xəta baş verdi.');
+                }
+            });
+        }
+    </script>
+}

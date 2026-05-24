@@ -1,0 +1,69 @@
+﻿@model List<DictionariesDto>
+<!-- Səhifə Başlığı və Əlavə Et Düyməsi -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-0 text-dark">Lüğət Siyahısı</h4>
+        <p class="text-muted small mb-0">Sistemdə olan terminlər və kateqoriyaların siyahısı</p>
+    </div>
+
+    <!-- Düyməni dəyişdik: data-bs-toggle yoxdur, birbaşa js funksiyasını çağırırıq -->
+    <button type="button" class="btn btn-primary px-4 py-2 d-flex align-items-center rounded-3 fw-medium" onclick="openAddModal()">
+        <i class="fa-solid fa-plus me-2"></i> Yeni Əlavə Et
+    </button>
+</div>
+
+<!-- GetList - Cədvəl Kartı -->
+<div class="card custom-card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-secondary">
+                    <tr>
+                        <th class="ps-4 py-3" style="font-weight: 600; font-size: 0.85rem; width: 25%;">BAŞLIQ</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 45%;">AÇIQLAMA (DESCRIPTION)</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 20%;">VALİDEYN (PARENT NAME)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-medium text-dark">@item.Name</td>
+                            <td class="text-muted text-truncate" style="max-width: 350px;">@item.Description</td>
+                            <td>
+                                <span class="badge bg-light text-primary border border-primary-subtle px-2.5 py-1.5 rounded-2">@item.ParentName</span>
+                            </td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalContainer"></div>
+
+@section Scripts {
+    <script>
+        function openAddModal() {
+            // Ekrana loading effekti vermək olar, sorğu bitənə qədər
+            $.ajax({
+                url: '/Dictionary/GetCreatePartial', // Controllerdəki metodumuz
+                type: 'GET',
+                success: function (response) {
+                    // Gələn HTML-i (Partial View) boş qabın içinə doldururuq
+                    $('#modalContainer').html(response);
+
+                    // Bootstrap Modalı işə salırıq və ekranda göstəririk
+                    var myModal = new bootstrap.Modal(document.getElementById('addDictionaryModal'));
+                    myModal.show();
+                },
+                error: function () {
+                    alert('Xəta baş verdi, məlumatlar yüklənə bilmədi.');
+                }
+            });
+        }
+    </script>
+}

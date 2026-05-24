@@ -1,0 +1,93 @@
+﻿@model List<DictionariesDto>
+
+<div class="modal fade" id="addDictionaryModal" tabindex="-1" aria-labelledby="addDictionaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 14px;">
+
+            <div class="modal-header border-bottom-0 pb-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <h5 class="modal-title fw-bold text-dark" id="addDictionaryModalLabel">
+                    <i class="fa-solid fa-folder-plus text-primary me-2"></i> Yeni Lüğət Elementi
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bağla"></button>
+            </div>
+
+            <div class="modal-body p-4">
+
+                <!-- Həmin an Db-dən gələn təzə datalar dynamic dolur -->
+                <div class="mb-3">
+                    <label for="parentId" class="form-label small fw-semibold text-secondary">Aid Olduğu Bölmə (Parent)</label>
+                    <select class="form-select border-light-subtle py-2 rounded-3" id="parentId" name="ParentId">
+                        @if (Model != null)
+                        {
+                            foreach (var parent in Model)
+                            {
+                                <option value="@parent.Id">@parent.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label small fw-semibold text-secondary">Başlıq <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control border-light-subtle py-2 rounded-3" id="name" name="Name" placeholder="Məs: 10 C" required autocomplete="off">
+                </div>
+
+                <div class="mb-2">
+                    <label for="description" class="form-label small fw-semibold text-secondary">Açıqlama (Description)</label>
+                    <textarea class="form-control border-light-subtle rounded-3" id="description" name="Description" rows="4" placeholder="Termin haqqında ətraflı məlumat yazın..."></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-footer border-top-0 pt-0 pb-4 px-4">
+                <button type="button" class="btn btn-light px-3 py-2 rounded-3 text-secondary fw-medium small" data-bs-dismiss="modal">Ləğv et</button>
+                <button onclick="submitDictionaryForm()" class="btn btn-primary px-4 py-2 rounded-3 fw-medium small shadow-sm">
+                    <i class="fa-solid fa-check me-1"></i> Yadda saxla
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function submitDictionaryForm() {
+        debugger;
+        // Göndəriləcək modeli JavaScript obyekt formasına salırıq
+        var model = {
+            parentid: $('#parentId').val() || null, // Əgər seçilməyibsə null getsin
+            name: $('#name').val(),
+            description: $('#description').val()
+        };
+
+        $.ajax({
+            url: '/Dictionary/Create',
+            type: 'POST',
+            data: model, // Göndərilən model
+            success: function (response) {
+                if (response.success) {
+                    // Modalı bağlayırıq
+                    var modalElement = document.getElementById('addDictionaryModal');
+                    var modalInstance = bootstrap.Modal.getInstance(modalElement);
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+
+                    // Əgər ekranda şirin bir bildiriş (SweetAlert və s.) yoxdursa standart alert
+                    alert(response.message || 'Məlumat uğurla yadda saxlanıldı!');
+
+                    // Ana səhifədəki cədvəlin yenilənməsi üçün səhifəni reload edirik
+                    // İdealda bura sadəcə cədvəli datatable kimi yeniləyən kiçik bir funksiya da qoyula bilər
+                    location.reload();
+                } else {
+                    alert('Xəta baş verdi: ' + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Yadda saxlayarkən xəta:", error);
+                alert('Serverlə əlaqə zamanı xəta baş verdi.');
+            }
+        });
+    }
+</script>

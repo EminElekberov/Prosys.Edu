@@ -1,0 +1,93 @@
+﻿@model List<LessonDto>
+
+@{
+    ViewData["Title"] = "Dərslərin İdarə Edilməsi";
+    ViewData["ActiveMenu"] = "Lessons"; // Sol menyuda Dərslər bölməsini aktiv edir
+}
+
+<!-- Səhifə Başlığı və Əlavə Et Düyməsi -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-0 text-dark">Dərslərin Siyahısı</h4>
+        <p class="text-muted small mb-0">Sistemdə qeydiyyatdan keçmiş dərslər, aid olduğu siniflər və müəllimlər</p>
+    </div>
+    <!-- Düyməyə basıldıqda birbaşa dynamic partial çağıran JS funksiyası işə düşür -->
+    <button type="button" class="btn btn-primary px-4 py-2 d-flex align-items-center rounded-3 fw-medium" onclick="openAddLessonModal()">
+        <i class="fa-solid fa-plus me-2"></i> Yeni Dərs Əlavə Et
+    </button>
+</div>
+
+<!-- GetList - Cədvəl Kartı -->
+<div class="card custom-card border-0 shadow-sm mb-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-secondary">
+                    <tr>
+                        <th class="ps-4 py-3" style="font-weight: 600; font-size: 0.85rem; width: 35%;">DƏRSİN ADI</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 25%;">SİNİFİN ADI</th>
+                        <th class="py-3" style="font-weight: 600; font-size: 0.85rem; width: 30%;">MÜƏLLİMİN ADI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-medium text-dark">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary-subtle text-primary rounded-2 p-2 me-2.5 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                                            <i class="fa-solid fa-book"></i>
+                                        </div>
+                                        <span>@item.name</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info-subtle text-info px-2.5 py-1.5 rounded-2 border border-info-subtle">
+                                        <i class="fa-solid fa-screen-users me-1"></i> @item.ClassName
+                                    </span>
+                                </td>
+                                <td class="text-secondary">
+                                    <i class="fa-regular fa-user-tie me-1.5 text-muted"></i> @item.TeacherName
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-muted">Hələ ki, heç bir dərs əlavə edilməyib.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Dynamic Modalın yüklənəcəyi boş konteyner -->
+<div id="lessonModalContainer"></div>
+
+@section Scripts {
+    <script>
+        function openAddLessonModal() {
+            // Serverdən dynamic olaraq formun daxili və selectbox datalarını gətiririk
+            $.ajax({
+                url: '/Lesson/GetCreatePartial',
+                type: 'GET',
+                success: function (response) {
+                    // HTML-i yerləşdiririk
+                    $('#lessonModalContainer').html(response);
+
+                    // Modalı ekranda göstəririk
+                    var lessonModal = new bootstrap.Modal(document.getElementById('addLessonModal'));
+                    lessonModal.show();
+                },
+                error: function () {
+                    alert('Dərs əlavə etmə paneli yüklənərkən xəta baş verdi.');
+                }
+            });
+        }
+    </script>
+}

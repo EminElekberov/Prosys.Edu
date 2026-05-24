@@ -1,0 +1,94 @@
+﻿@{
+    var ClassList = ((IEnumerable<SelectListItem>)ViewBag.ClassList)
+       .Select(s => $"<option value=\"{s.Value}\">{s.Text}</option>")
+       .ToList();
+
+    var TeacherList = ((IEnumerable<SelectListItem>)ViewBag.TeacherList)
+    .Select(s => $"<option value=\"{s.Value}\">{s.Text}</option>")
+    .ToList();
+}
+<div class="modal fade" id="addLessonModal" tabindex="-1" aria-labelledby="addLessonModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 14px;">
+
+            <div class="modal-header border-bottom-0 pb-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <h5 class="modal-title fw-bold text-dark" id="addLessonModalLabel">
+                    <i class="fa-solid fa-book-medical text-primary me-2"></i> Yeni Dərs Proqramı
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bağla"></button>
+            </div>
+
+            <form id="createLessonForm" onsubmit="submitLessonForm(event)">
+                <div class="modal-body p-4">
+
+                    <!-- Dərsin Adı İnpudu -->
+                    <div class="mb-3">
+                        <label for="lessonName" class="form-label small fw-semibold text-secondary">Dərsin Adı <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control border-light-subtle py-2 rounded-3" id="lessonName" placeholder="Məsələn: Riyaziyyat, Fizika" required autocomplete="off">
+                    </div>
+
+                    <!-- Dynamic Sinif Seçimi -->
+                    <div class="mb-3">
+                        <label for="classId" class="form-label small fw-semibold text-secondary">Sinif Seçin <span class="text-danger">*</span></label>
+                        <select class="form-select border-light-subtle py-2 rounded-3" id="classId" required>
+                            @Html.Raw(string.Join("", ClassList))
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Müəllim Seçimi -->
+                    <div class="mb-2">
+                        <label for="teacherId" class="form-label small fw-semibold text-secondary">Müəllim Təyin Edin <span class="text-danger">*</span></label>
+                        <select class="form-select border-light-subtle py-2 rounded-3" id="teacherId" required>
+                            @Html.Raw(string.Join("", TeacherList))
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer border-top-0 pt-0 pb-4 px-4">
+                    <button type="button" class="btn btn-light px-3 py-2 rounded-3 text-secondary fw-medium small" data-bs-dismiss="modal">Ləğv et</button>
+                    <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 fw-medium small shadow-sm">
+                        <i class="fa-solid fa-check me-1"></i> Dərsi Yarat
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitLessonForm(e) {
+        e.preventDefault();
+
+        // İstədiyiniz dəqiq model strukturu formalaşdırılır
+        var lessonModel = {
+            name: $('#lessonName').val(),
+            ClassId: $('#classId').val(),
+            TeacherId: $('#teacherId').val()
+        };
+
+        $.ajax({
+            url: '/Lesson/Create',
+            type: 'POST',
+            data: lessonModel,
+            success: function (response) {
+                if (response.success) {
+                    // Modalı gizlədirik
+                    var modalEl = document.getElementById('addLessonModal');
+                    var modalInstance = bootstrap.Modal.getInstance(modalEl);
+                    if (modalInstance) modalInstance.hide();
+
+                    alert(response.message || 'Dərs uğurla əlavə edildi!');
+                    location.reload(); // Cədvəlin yenilənməsi üçün
+                } else {
+                    alert('Xəta baş verdi: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Məlumat göndərilərkən server xətası baş verdi.');
+            }
+        });
+    }
+</script>

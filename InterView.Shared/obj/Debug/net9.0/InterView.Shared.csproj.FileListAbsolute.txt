@@ -1,0 +1,11 @@
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\bin\Debug\net9.0\InterView.Shared.deps.json
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\bin\Debug\net9.0\InterView.Shared.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\bin\Debug\net9.0\InterView.Shared.pdb
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\InterView.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\InterView.Shared.AssemblyInfoInputs.cache
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\InterView.Shared.AssemblyInfo.cs
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\InterView.Shared.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\InterView.Shared.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\refint\InterView.Shared.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\InterView.Shared.pdb
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Shared\obj\Debug\net9.0\ref\InterView.Shared.dll

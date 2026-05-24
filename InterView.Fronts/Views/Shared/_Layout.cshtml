@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EduAdmin Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: #f8f9fa;
+                overflow-x: hidden;
+            }
+
+            /* Sidebar Dizaynı */
+            #sidebar {
+                min-width: 260px;
+                max-width: 260px;
+                min-height: 100vh;
+                background: #1e293b; /* Müasir Tünd Göy / Slate rəngi */
+                color: #fff;
+                transition: all 0.3s;
+            }
+
+                #sidebar .sidebar-header {
+                    padding: 20px;
+                    background: #0f172a;
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                }
+
+                #sidebar ul.components {
+                    padding: 15px 0;
+                }
+
+                #sidebar ul li a {
+                    padding: 12px 20px;
+                    font-size: 0.95rem;
+                    display: flex;
+                    align-items: center;
+                    color: #94a3b8;
+                    text-decoration: none;
+                    transition: all 0.2s;
+                    border-radius: 8px;
+                    margin: 4px 10px;
+                }
+
+                    #sidebar ul li a:hover {
+                        color: #fff;
+                        background: #334155;
+                    }
+
+                #sidebar ul li.active > a {
+                    color: #fff;
+                    background: #0ea5e9; /* Canlı Göy / Səma rəngi */
+                    font-weight: 500;
+                }
+
+                #sidebar ul li a i {
+                    margin-right: 12px;
+                    font-size: 1.1rem;
+                    width: 24px;
+                    text-align: center;
+                }
+
+            /* Əsas Kontent Sahəsi */
+            #content {
+                width: 100%;
+                min-height: 100vh;
+                transition: all 0.3s;
+            }
+
+            /* Üst Navbar */
+            .top-navbar {
+                background: #ffffff;
+                padding: 15px 30px;
+                border-bottom: 1px solid #e2e8f0;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            }
+
+            .main-body-content {
+                padding: 30px;
+            }
+
+            /* Kartlar və ümumi admin dizayn elementləri */
+            .custom-card {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            }
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header d-flex align-items-center">
+                <i class="fa-solid fa-graduation-cap me-2 text-info"></i>
+                <span>EDU PORTAL</span>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="@(ViewData["ActiveMenu"]?.ToString() == "Lessons" ? "active" : "")">
+                    <a href="/Lesson/GetList"><i class="fa-solid fa-book-open"></i> Dərslər</a>
+                </li>
+                <li class="@(ViewData["ActiveMenu"]?.ToString() == "Exams" ? "active" : "")">
+                    <a href="/Exam/GetList"><i class="fa-solid fa-file-pen"></i> İmtahanlar</a>
+                </li>
+                <li class="@(ViewData["ActiveMenu"]?.ToString() == "Students" ? "active" : "")">
+                    <a href="/User/GetList"><i class="fa-solid fa-user-graduate"></i> Şagirdlər</a>
+                </li>
+                <li class="@(ViewData["ActiveMenu"]?.ToString() == "Dictionary" ? "active" : "")">
+                    <a href="/Dictionary/GetList"><i class="fa-solid fa-spell-check"></i> Lüğət</a>
+                </li>
+                <hr class="border-secondary mx-3my-2">
+            </ul>
+        </nav>
+
+        <!-- Əsas Kontent Bölməsi -->
+        <div id="content">
+            <!-- Üst Navbar (Profil və Bildirişlər) -->
+            <nav class="navbar navbar-expand-lg top-navbar">
+                <div class="container-fluid p-0">
+                    <span class="navbar-text text-muted fw-medium">
+                        Xoş gəldiniz, Admin
+                    </span>
+
+                    <div class="ms-auto d-flex align-items-center">
+                        <!-- Bildiriş ikonası -->
+                        <div class="dropdown me-3">
+                            <ul class="dropdown-menu dropdown-menu-end custom-card p-2 mt-2">
+                                <li><a class="dropdown-menu-item small p-2 d-block text-dark text-decoration-none" href="#">Yeni şagird qeydiyyatdan keçdi</a></li>
+                                <li><a class="dropdown-menu-item small p-2 d-block text-dark text-decoration-none" href="#">İmtahan nəticələri hazırdır</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Profil dropdown -->
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none text-dark dropdown-toggle" data-bs-toggle="dropdown">
+                                <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 38px; height: 38px; font-weight: 600;">
+                                    A
+                                </div>
+                                <span class="fw-medium d-none d-sm-inline">Admin Panel</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end custom-card mt-2">
+                                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profilim</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Çıxış</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Səhifələrin daxili kontenti bura gələcək -->
+            <main class="main-body-content">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle (Popper daxil) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 2. Sonra Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

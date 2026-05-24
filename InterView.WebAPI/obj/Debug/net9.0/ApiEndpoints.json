@@ -1,0 +1,106 @@
+[
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.DictionaryController",
+    "Method": "CreateOrUpdateDictianary",
+    "RelativePath": "api/Dictionary/CreateOrUpdateDictianary",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dictionariesDto",
+        "Type": "InterView.Shared.DTOs.DictionariesDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.DictionaryController",
+    "Method": "GetList",
+    "RelativePath": "api/Dictionary/GetList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.ExamController",
+    "Method": "Create",
+    "RelativePath": "api/Exam/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "InterView.Shared.DTOs.ExamDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.ExamController",
+    "Method": "GetList",
+    "RelativePath": "api/Exam/GetList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.LessonController",
+    "Method": "CreateOrUpdate",
+    "RelativePath": "api/Lesson/CreateOrUpdate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lessonDto",
+        "Type": "InterView.Shared.DTOs.LessonDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.LessonController",
+    "Method": "GetListLesson",
+    "RelativePath": "api/Lesson/GetListLesson",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "api/User/CreateUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usersDto",
+        "Type": "InterView.Shared.DTOs.UsersDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InterView.WebAPI.Controllers.UserController",
+    "Method": "GetList",
+    "RelativePath": "api/User/GetList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

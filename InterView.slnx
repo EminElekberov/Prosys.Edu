@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="InterView.Application/InterView.Application.csproj" Id="6dfca2ac-53dc-4b0e-8cb5-2ee47240aa91" />
+  <Project Path="InterView.DataBase/InterView.DataBase.csproj" />
+  <Project Path="InterView.Domain/InterView.Domain.csproj" />
+  <Project Path="InterView.Fronts/InterView.Front.csproj" />
+  <Project Path="InterView.RemoteServer/InterView.RemoteServer.csproj" />
+  <Project Path="InterView.Shared/InterView.Shared.csproj" Id="f7bf99b2-df16-4682-928b-78a2561602b2" />
+  <Project Path="InterView.WebAPI/InterView.WebAPI.csproj" Id="3540ca17-5bdb-43b5-9fbf-732a447c0a1c" />
+</Solution>

@@ -1,0 +1,11 @@
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\bin\Debug\net9.0\InterView.Domain.deps.json
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\bin\Debug\net9.0\InterView.Domain.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\bin\Debug\net9.0\InterView.Domain.pdb
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\InterView.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\InterView.Domain.AssemblyInfoInputs.cache
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\InterView.Domain.AssemblyInfo.cs
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\InterView.Domain.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\InterView.Domain.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\refint\InterView.Domain.dll
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\InterView.Domain.pdb
+D:\WorkSpace\Projects\ProsysInterview\InterView\InterView.Domain\obj\Debug\net9.0\ref\InterView.Domain.dll
